@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="asset/bootstrap-3.1/css/bootstrap.min.css">
+        <script type="text/javascript" src="asset/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="asset/bootstrap-3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="asset/validator/myValidator.js"></script>
+        <style>
+            .ng-invalid.ng-valid-pattern{
+                border-color: #a94442;
+            }
+            .ng-invalid.ng-valid-pattern:focus{
+                border-color: #00b2ff;
+            }
+            input[value=""]:focus + .help-block> ul{
+                display:none;
+            }           
+            .fontNormal{
+                color: #9c9c9c !important; 
+            }
+            .valid-block{
+                color: #a94442;
+                padding:3px;
+            }
+            .invalid-field{
+                border-color: #a94442 !important;
+            }
+        </style>
+    </head>
+    <body>
+        <form name="clientform" data-toggle="validator" role="form" novalidate>
+
+            <div class="col-md-10 col-xs-12">
+                <div class="row form-group">
+                    <div class="col-md-4 col-xs-12">
+                        <label class="control-label" for="inputCode">Code</label><br>
+                        <span style="font-size: 10px;font-style: italic;">Only AlphaNumeric</span>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <input type="text" pattern="^(?=.*[a-zA-Z])([a-zA-Z0-9]+)$" class="form-control" required>
+                        <div class="valid-block"></div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-4 col-xs-12">
+                        <label class="control-label" for="inputName">Name</label><br>
+                        <span style="font-size: 10px;font-style: italic;">Only Alphabets</span>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <input type="text" pattern="^(?=.*[a-zA-Z])([a-zA-Z]+)$" class="form-control" required><!-- pattern="^(?=.*[a-zA-Z])([a-zA-Z]+)$"-->
+                        <div class="valid-block">
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4 col-xs-12">
+                        <label class="control-label" for="inputName">Email</label>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <input type="email" class="form-control" required>
+                        <div class="valid-block"></div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4 col-xs-12">
+                        <label class="control-label" for="inputName">Country</label>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <select class="form-control" required>
+                            <option value=""></option>
+                            <option value="India">India</option>
+                            <option value="America">America</option>
+                            <option value="England">England</option>
+                            <option value="Africa">Africa</option>
+                            <option value="Australia">Australia</option>
+                            <option value="China">China</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Pakistan">Pakistan</option>
+                        </select>
+                        <div class="valid-block"></div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4 col-xs-12">
+                        <label class="control-label" for="inputName">TextArea</label>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <textarea class="form-control" required col="5" row="3"></textarea>
+                        <div class="valid-block"></div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-4 col-xs-12">
+                        <label class="control-label">Radio</label>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <div class="radio">
+                            <label><input style="margin-top:3px;" type="radio" value="Active" name="optradio" required>Active</label>
+                            <div class="valid-block"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <div class="radio">
+                            <label><input style="margin-top:3px;" type="radio" value="Inactive" name="optradio" required>InActive</label>
+                            <div class="valid-block"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-4 col-xs-12">
+                        <label class="control-label" for="inputClientLogo">Client Logo</label>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <input type="file" resize-max-height="150px" id="inputClientLogo" resize-max-width="350px"  file-model="myFile" name="filename" accept="image/*">
+                    </div>
+                </div>               
+            </div>
+
+            <div class="col-md-12 col-xs-12 submit"> 
+                <div class="col-md-12 col-xs-12" style="padding: 0" >
+                    <button type="submit" name="submit" class="button-green pull-right" >Submit</button>
+                    <button type="reset" class="button-green pull-right"  style="margin:0px 2px">Cancel</button>
+                </div>
+            </div>
+
+        </form>
+    </body>
+</html>
