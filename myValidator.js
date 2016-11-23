@@ -11,69 +11,24 @@ $(document).ready(function ()
 {
     setTimeout(function ()
     {
-//        Text Box with Required attribute
-        $('input[required]').bind('focus', function ()
+        $('input[required], select[required], textarea[required]').bind('focus', function ()
         {
-            if (getValue(this).length == 0)
+            if (getValue(this).length === 0)
             {
                 errorMsg(this, 'remove');
             }
         });
-        $('input[required]').bind('blur', function ()
+        $('input[required], select[required], textarea[required]').bind('blur', function ()
         {
-            if (getValue(this).length == 0)
+            if (getValue(this).length === 0)
             {
                 errorMsg(this, 'required');
             }
         });
-
-        $('input[required]').bind('keyup', function ()
+        $('input[required], select[required], textarea[required]').bind('keyup', function ()
         {
             fieldCheck(this);
         });
-
-//        Select Box with Required Field
-        $('select[required]').bind('focus', function ()
-        {
-            if (getValue(this).length == 0)
-            {
-                errorMsg(this, 'remove');
-            }
-        });
-        $('select[required]').bind('blur', function ()
-        {
-            if (getValue(this).length == 0)
-            {
-                errorMsg(this, 'required');
-            }
-        });
-
-        $('select[required]').bind('keyup', function ()
-        {
-            fieldCheck(this);
-        });
-
-//        Textarea Box with Required Field
-        $('textarea[required]').bind('focus', function ()
-        {
-            if (getValue(this).length == 0)
-            {
-                errorMsg(this, 'remove');
-            }
-        });
-        $('textarea[required]').bind('blur', function ()
-        {
-            if (getValue(this).length == 0)
-            {
-                errorMsg(this, 'required');
-            }
-        });
-
-        $('textarea[required]').bind('keyup', function ()
-        {
-            fieldCheck(this);
-        });
-
 
         $("form").on("submit", function ()
         {
@@ -96,15 +51,14 @@ $(document).ready(function ()
             });
             if (!result)
             {
-                $(this).find("button[type='submit']").attr("disabled");
+                $(this).find("input[type='submit']").attr("disabled");
             }
             else
             {
-                $(this).find("button[type='submit']").removeAttr("disabled");
+                $(this).find("input[type='submit']").removeAttr("disabled");
             }
 
         });
-
 
         $("form").on("reset", function ()
         {
@@ -124,57 +78,75 @@ $(document).ready(function ()
 
         function fieldCheck(elem)
         {
-            var resultPatrn = true;
-            if ($(elem).val().length == 0)
+            if ($(elem).val().length === 0)
             {
                 errorMsg(elem, 'required');
-                resultPatrn = false;
             }
             else
             {
                 if (getValue(elem).length > 1)
                 {
                     var type = getType(elem);
-                    if (type == "text" || type == "password"||type == "radio"||type == "checkbox")
+                    switch (type)
                     {
-                        var patternMatch = patternCheck(elem);
-                        if (patternMatch !== null)
-                        {
-                            if (!patternMatch)
-                            {
-                                if (getValue(elem).length == 0)
-                                {
-                                    errorMsg(elem, 'required');
-                                }
-                                else
-                                {
-                                    errorMsg(elem, 'pattern');
-                                }
-                                resultPatrn = false;
-                            }
-                            else
-                            {
-                                errorMsg(elem, 'remove');
-                            }
-                        }
+                        case "text":
+                            fieldVal(elem);
+                            break;
+                        case "password":
+                            fieldVal(elem);
+                            break;
+                        case "radio":
+                            fieldVal(elem);
+                            break;
+                        case "checkbox":
+                            fieldVal(elem);
+                            break;
+                        case "email":
+                            emailVal(elem);
+                            break;
                     }
-                    if (type == 'email')
+                }
+            }
+        }
+
+        function fieldVal(elem)
+        {
+            var patternMatch = patternCheck(elem);
+            if (patternMatch !== null)
+            {
+                if (!patternMatch)
+                {
+                    if (getValue(elem).length == 0)
                     {
-                        if (getValue(elem).length == 0)
-                        {
-                            errorMsg(elem, 'required');
-                        }
-                        else
-                        {
-                            var eRess=emailValid(elem);
-                            if(eRess){
-                                 errorMsg(elem, 'email');
-                            }
-                            else{
-                                errorMsg(elem, 'remove');
-                            }
-                        }
+                        errorMsg(elem, 'required');
                     }
+                    else
+                    {
+                        errorMsg(elem, 'pattern');
+                    }
+                }
+                else
+                {
+                    errorMsg(elem, 'remove');
+                }
+            }
+        }
+
+        function emailVal(elem)
+        {
+            if (getValue(elem).length == 0)
+            {
+                errorMsg(elem, 'required');
+            }
+            else
+            {
+                if (!emailValid(elem))
+                {
+                    errorMsg(elem, 'email');
+                }
+                else
+                {
+                    errorMsg(elem, 'remove');
                 }
             }
         }
@@ -245,14 +217,14 @@ $(document).ready(function ()
                     $(elem).addClass("invalid-field");
                     $(elem).next('.valid-block').html("").append("<span>Please fill with specific format.</span>");
                     var parentElem = $(elem).parents("form");
-                    var btn = parentElem.find("button[type=submit]");
+                    var btn = parentElem.find("input[type=submit]");
                     $(btn).attr("disabled", true);
                     break;
                 case "email":
                     $(elem).addClass("invalid-field");
                     $(elem).next('.valid-block').html("").append("<span>Please fill with valid E-Mail.</span>");
                     var parentElem = $(elem).parents("form");
-                    var btn = parentElem.find("button[type=submit]");
+                    var btn = parentElem.find("input[type=submit]");
                     $(btn).attr("disabled", true);
                     break;
                 case "remove":
@@ -262,7 +234,7 @@ $(document).ready(function ()
                     var formValid = checkHasClass(parentElem);
                     if (formValid)
                     {
-                        var btn = parentElem.find("button[type=submit]");
+                        var btn = parentElem.find("input[type=submit]");
                         $(btn).attr("disabled", false);
                     }
                     break;
