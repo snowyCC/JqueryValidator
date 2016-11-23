@@ -11,12 +11,9 @@ $(document).ready(function ()
 {
     setTimeout(function ()
     {
-        $('input[required], select[required], textarea[required]').bind('focus', function ()
+        $('input[required], select[required], textarea[required]').focusin(function (event)
         {
-            if (getValue(this).length === 0)
-            {
-                errorMsg(this, 'remove');
-            }
+            errorMsg(this, 'remove');
         });
         $('input[required], select[required], textarea[required]').bind('blur', function ()
         {
@@ -25,9 +22,10 @@ $(document).ready(function ()
                 errorMsg(this, 'required');
             }
         });
-        $('input[required], select[required], textarea[required]').bind('keyup', function ()
+        $('input[required], select[required], textarea[required]').bind('keyup', function (event)
         {
-            fieldCheck(this);
+            if (event.keyCode !== 9)
+                fieldCheck(this);
         });
 
         $("form").on("submit", function ()
@@ -240,6 +238,5 @@ $(document).ready(function ()
                     break;
             }
         }
-    }
-    , 1000);
+    }, 1000);
 });
